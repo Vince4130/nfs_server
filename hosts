@@ -1,0 +1,6 @@
+
+[nfs_server]
+node1 nfs_server_network=198.168.122.0/24
+
+[nfs_client]
+node2 nfs_client_server=node2 nfs_client_path=/srv/nfs

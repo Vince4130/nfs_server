@@ -1,0 +1,15 @@
+---
+
+- name: Server
+  hosts:
+    - nfs_server
+  become: true
+  roles:
+    - nfs_server
+
+- name: Client
+  hosts:
+    - nfs_client
+  become: true
+  roles:
+    - nfs_client

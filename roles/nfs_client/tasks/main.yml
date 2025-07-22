@@ -1,0 +1,17 @@
+---
+# tasks file for nfs_client
+
+- name: Include vars
+  ansible.builtin.include_vars: "{{ ansible_os_family }}.yml"
+
+- name: Install nfs utils
+  ansible.builtin.package:
+    name: "{{ nfs_client_package }}"
+    state: present
+
+- name: Nfstab et mount
+  ansible.posix.mount:
+    src:  "{{ nfs_client_server }}:{{ nfs_client_path }}"
+    path: /mnt
+    fstype: nfs
+    state: mounted

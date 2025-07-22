@@ -1,0 +1,35 @@
+---
+
+- name: Exercice 4
+  hosts: test
+  become: true
+
+  tasks:
+
+  - name: Service de journalisation
+    ansible.builtin.lineinfile:
+      path:  /etc/rsyslog.conf
+      line:  local4.*    /var/log/test
+      regexp: "^local4"
+    notify:
+      - restart syslog
+      - logger_test
+
+  handlers:
+    - name: Redémarrage de rsyslog
+      ansible.builtin.service:
+        name: rsyslog
+        state: restarted
+      listen: restart syslog
+
+    - name: Test rsyslog
+      community.general.syslogger:
+        msg: 'test rsyslog'
+        facility: local4
+        priority: info
+      listen: logger_test
+
+  
+    
+    
+

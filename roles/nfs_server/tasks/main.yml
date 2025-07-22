@@ -1,0 +1,30 @@
+---
+# tasks file for nfs_server
+
+- name: Include vars
+  ansible.builtin.include_vars: "{{ ansible_os_family }}.yml"
+
+- name: install nfs utils
+  ansible.builtin.package:
+    name: "{{ nfs_server_package }}"
+    state: present
+  notify: 
+    - nfs_server_start
+
+- name: Make directory /srv/nfs
+  ansible.builtin.file:
+    path: /srv/nfs
+    state: directory
+    owner: root
+    group: root
+    mode: '755'
+
+- name: File /etc/exports
+  ansible.builtin.lineinfile:
+    path: /etc/exports
+    line: "/srv/nfs  {{ nfs_server_network }}(rw)"
+    regexp: "^/srv/nfs"
+  notify: 
+    - nfs_server_restart
+  tags:
+    - nfs_server_exports
