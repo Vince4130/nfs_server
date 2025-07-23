@@ -4,12 +4,17 @@
 - name: Include vars
   ansible.builtin.include_vars: "{{ ansible_os_family }}.yml"
 
-- name: install nfs utils
+- name: Install nfs utils
   ansible.builtin.package:
-    name: "{{ nfs_server_package }}"
+    name: "{{ nfs_server_pkg }}"
     state: present
-  notify: 
-    - nfs_server_start
+  # notify: NFS start
+
+- name: NFS service activation
+  ansible.builtin.service:
+    name: nfs-server
+    state: started
+    enabled: true
 
 - name: Make directory /srv/nfs
   ansible.builtin.file:
@@ -17,14 +22,21 @@
     state: directory
     owner: root
     group: root
-    mode: '755'
+    mode: '0777'
 
 - name: File /etc/exports
   ansible.builtin.lineinfile:
     path: /etc/exports
-    line: "/srv/nfs  {{ nfs_server_network }}(rw)"
+    line: "/srv/nfs  {{ nfs_server_network }}(rw,sync,no_subtree_check,no_root_squash)"
     regexp: "^/srv/nfs"
-  notify: 
-    - nfs_server_restart
-  tags:
-    - nfs_server_exports
+  notify: NFS restart
+
+- name: Export NFS shares
+  command: exportfs -r
+
+- name: Firewall Configuration
+  ansible.posix.firewalld:
+    service: nfs
+    state: enabled
+    permanent: true
+    immediate: true

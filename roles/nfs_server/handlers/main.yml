@@ -1,15 +1,12 @@
 ---
 # handlers file for nfs
 
-- name: Start nfs
+- name: NFS start
   ansible.builtin.service:
     name: nfs-server
     state: started
-    enabled: true
-  listen: nfs_server_start
 
-- name: Restart nfs
+- name: NFS restart
   ansible.builtin.service:
     name: nfs-server
     state: restarted
-  listen: nfs_server_restart

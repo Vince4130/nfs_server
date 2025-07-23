@@ -1,4 +1,4 @@
 ---
 # vars file for nfs
 
-nfs_client_package: nfs-common
+nfs_client_pkg: nfs-common

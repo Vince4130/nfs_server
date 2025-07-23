@@ -6,10 +6,17 @@
 
 - name: Install nfs utils
   ansible.builtin.package:
-    name: "{{ nfs_client_package }}"
+    name: "{{ nfs_client_pkg }}"
     state: present
+  # notify: nfs_server_start
 
-- name: Nfstab et mount
+- name: NFS service activation
+  ansible.builtin.service:
+    name: nfs-server
+    state: started
+    enabled: true
+
+- name: NFS fstab et mount
   ansible.posix.mount:
     src:  "{{ nfs_client_server }}:{{ nfs_client_path }}"
     path: /mnt

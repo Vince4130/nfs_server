@@ -3,13 +3,13 @@
 - name: Server
   hosts:
     - nfs_server
-  become: true
+  remote_user: root
   roles:
     - nfs_server
 
 - name: Client
   hosts:
     - nfs_client
-  become: true
+  remote_user: root
   roles:
     - nfs_client

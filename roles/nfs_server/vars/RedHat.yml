@@ -1,4 +1,4 @@
 ---
 # vars file for nfs
 
-nfs_server_package: nfs-utils
+nfs_server_pkg: nfs-utils
