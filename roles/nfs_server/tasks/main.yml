@@ -31,12 +31,12 @@
     regexp: "^/srv/nfs"
   notify: NFS restart
 
-- name: Export NFS shares
-  command: exportfs -r
+# - name: Export NFS shares
+#   command: exportfs -r
 
-- name: Firewall Configuration
-  ansible.posix.firewalld:
-    service: nfs
-    state: enabled
-    permanent: true
-    immediate: true
+# - name: Firewall Configuration
+#   ansible.posix.firewalld:
+#     service: nfs
+#     state: enabled
+#     permanent: true
+#     immediate: true
