@@ -1,0 +1,13 @@
+---
+
+- name: Identite
+  hosts: nfs_server
+  remote_user: vince
+  become: true
+  tasks:
+    - name: Command id
+      ansible.builtin.command:
+        cmd: id
+    - name: Uname
+      ansible.builtin.command:
+        cmd: uname -a
