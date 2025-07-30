@@ -1,0 +1,1 @@
+Ansible script to mount an nfs partage, with a node server and a node client
