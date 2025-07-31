@@ -1,0 +1,8 @@
+---
+
+- name: CLI variables
+  hosts: node1
+  tasks:
+    - name: Variable display
+      ansible.builtin.debug:
+        msg: 'The variable var contains : {{ var }}'

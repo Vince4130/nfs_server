@@ -1,0 +1,14 @@
+---
+
+- name: Variables and quotation marks
+  hosts: node1
+  vars:
+    srv: mr-fabulous
+    clt: blues-brothers
+  tasks:
+    - name: Test with quotation marks
+      ansible.builtin.debug:
+        msg: "{{ item  }}.example.com"
+      loop:
+        - "{{ srv }}"
+        - "{{ clt }}"

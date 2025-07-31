@@ -1,0 +1,32 @@
+---
+
+- name: Conditions
+  hosts: node1
+  
+  tasks:
+    - name: Apache in Debian
+      ansible.builtin.package:
+        name: apache2
+        state: present
+        enable: true
+      when: ansible_os_family == 'Debian'
+
+    - name: Apache in RedHat
+      ansible.builtin.package:
+        name: httpd
+        state: present
+      when: ansible_os_family == 'RedHat'
+
+    - name: Apache service activation Debian
+      ansible.builtin.service:
+        name: apache2
+        state: started
+        enabled: true
+      when: ansible_os_family == 'Debian'
+
+    - name: Apache service activation RedHat
+      ansible.builtin.service:
+        name: httpd
+        state: started
+        enabled: true
+      when: ansible_os_family == 'RedHat'

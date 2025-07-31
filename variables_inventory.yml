@@ -1,0 +1,8 @@
+---
+
+- name: Inventory variables
+  hosts: all
+  tasks:
+    - name: Variable display
+      ansible.builtin.debug:
+        msg: 'La variable var contient : {{ var }}'

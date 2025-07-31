@@ -1,0 +1,16 @@
+---
+
+- name: Variables filters
+  hosts: node2
+  vars:
+    test: GRAND
+  
+  tasks:
+
+    - name: Whithout filter
+      ansible.builtin.debug:
+        msg: "{{ test }}"
+
+    - name: With filter
+      ansible.builtin.debug:
+        msg: "{{ test | lower }}"

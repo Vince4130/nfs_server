@@ -1,0 +1,17 @@
+---
+
+- name: Playbook variables
+  hosts: node2
+  remote_user: root
+  vars:
+    file: gopher
+    version: 1.0
+  tasks:
+    - name: Copy the configuration file
+      ansible.builtin.copy:
+        src: "test-{{ file }}-{{ version }}-{{ ansible_os_family }}.conf"
+        dest: "/etc/{{ file }}.conf"
+        owner: root
+        group: root
+        mode: '444'
+        
