@@ -1,0 +1,19 @@
+---
+
+- name: Loop Match
+  hosts: all
+  remote_user: root
+  vars:
+    crt: /etc/pki/tls/certs/{{ inventory_hostname }}-crt.pem
+    key: /etc/pki/tls/private/{{ inventory_hostname }}-key.pem
+  
+  tasks:
+
+    - name: Private key and tls certificate access rights
+      ansible.builtin.file:
+        path: "{{ item.path }}"
+        mode: "{{ item.mode }}"
+        state: touch
+      loop:
+          - { path: "{{ crt }}" , mode: '444' }
+          - { path: "{{ key }}" , mode: '400' }  

@@ -1,0 +1,16 @@
+---
+
+- name: Simple Loop
+  hosts: node2
+  vars:
+    projet_svn: test
+  
+  tasks:
+    - name: Standard SVN directories
+      ansible.builtin.file:
+        path: /srv/svn/{{ projet_svn }}/{{ item }}
+        state: directory
+        owner: root
+        group: root
+        mode: '0755'
+      loop: [ branches, tags, trunk ]
